@@ -1,7 +1,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
+#include "fila.h"
 
 void exibirGrafo(int grafo[6][6], char* bairros[6]) {
 	printf("\nMatriz de Adjacência:\n");
@@ -33,6 +33,17 @@ void limparTela() {
 #endif
 }
 
+
+void bfs(int grafo[6][6], char* bairros[6], int inicio) {
+	Fila* fila = criarFila(6);
+
+	enfileirar(fila, inicio);
+
+	while (!filaVazia(fila)) {
+		int atual = desenfileirar(fila);
+		printf("Visitando %s\n", bairros[atual]);
+	}
+}
 
 int main()
 {
@@ -73,7 +84,7 @@ int main()
 			break;
 
 		case 2:
-			printf("BFS ainda nao implementado.\n");
+			bfs(grafo, bairros, 0); // Inicia BFS a partir do bairro A (index 0)
 			break;
 
 		case 3:
