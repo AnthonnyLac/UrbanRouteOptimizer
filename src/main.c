@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "../include/fila.h"
 #include "../include/pilha.h"
+#include <limits.h>
 
 void limparTela() {
 #ifdef _WIN32
@@ -117,6 +118,96 @@ void dfs(int grafo[6][6], char* bairros[6], int inicio) {
     destruirPilha(pilha);
 }
 
+
+// Algoritmo de Dijkstra para encontrar o menor caminho entre dois bairros
+void dijkstra(int grafo[6][6], char* bairros[6], int origem, int destino) {
+
+    // dist[i] armazena a menor distância conhecida da origem até o vértice i
+    int dist[6];
+
+    // visitado[i] indica se o vértice já foi "confirmado" (processado)
+    int visitado[6];
+
+    // anterior[i] guarda de qual vértice viemos para chegar em i (usado para reconstruir o caminho)
+    int anterior[6];
+
+    //Inicialização
+    for (int i = 0; i < 6; i++) {
+        dist[i] = INT_MAX;   // inicialmente, todos os caminhos são considerados "infinito"
+        visitado[i] = 0;     // nenhum vértice foi visitado ainda
+        anterior[i] = -1;    // ainda não sabemos o caminho
+    }
+
+    // A distância da origem até ela mesma é sempre 0
+    dist[origem] = 0;
+
+    // Processamento principal
+    for (int i = 0; i < 6 - 1; i++) {
+
+        int menor = -1;
+
+        // Escolher o vértice não visitado com a menor distância atual
+        for (int j = 0; j < 6; j++) {
+            if (!visitado[j] && (menor == -1 || dist[j] < dist[menor])) {
+                menor = j;
+            }
+        }
+
+        // Marcar esse vértice como processado (definitivo)
+        visitado[menor] = 1;
+
+        //  Relaxamento das arestas
+        // "Relaxar" significa tentar melhorar a distância dos vizinhos
+        for (int v = 0; v < 6; v++) {
+
+            // verifica se existe conexão entre os vértices
+            if (grafo[menor][v] != 0 && !visitado[v]) {
+
+                // calcula o custo de ir até v passando por "menor"
+                int novoCusto = dist[menor] + grafo[menor][v];
+
+                // se esse caminho for melhor, atualiza
+                if (novoCusto < dist[v]) {
+                    dist[v] = novoCusto;
+                    anterior[v] = menor;
+                }
+            }
+        }
+    }
+
+    //Resultado final
+
+    printf("\n===== RESULTADO DIJKSTRA =====\n");
+
+    printf("Menor distancia de %s ate %s: %d\n",
+           bairros[origem],
+           bairros[destino],
+           dist[destino]);
+
+    // Reconstrução do caminho
+    // aqui voltamos do destino até a origem usando o vetor "anterior"
+
+    int caminho[6];
+    int count = 0;
+
+    for (int i = destino; i != -1; i = anterior[i]) {
+        caminho[count++] = i;
+    }
+
+    printf("Caminho percorrido: ");
+
+    // imprime de trás para frente (origem → destino)
+    for (int i = count - 1; i >= 0; i--) {
+        printf("%s", bairros[caminho[i]]);
+
+        if (i > 0) {
+            printf(" -> ");
+        }
+    }
+
+    printf("\n");
+}
+
 int main()
 {
 	int grafo[6][6] = {
@@ -163,9 +254,25 @@ int main()
 			dfs(grafo, bairros, 0); // Inicia DFS a partir do bairro A (index 0)
 			break;
 
-		case 4:
-			printf("Dijkstra ainda nao implementado.\n");
+		case 4: {
+			int origem, destino;
+
+			printf("Digite o bairro de origem (0 a 5): ");
+			scanf("%d", &origem);
+
+			printf("Digite o bairro de destino (0 a 5): ");
+			scanf("%d", &destino);
+
+			limparTela();
+
+			if (origem < 0 || origem > 5 || destino < 0 || destino > 5) {
+				printf("Entrada invalida!\n");
+				break;
+			}
+
+			dijkstra(grafo, bairros, origem, destino);
 			break;
+		}
 
 		case 5:
 			printf("Saindo...\n");
