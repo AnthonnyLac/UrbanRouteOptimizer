@@ -3,6 +3,14 @@
 #include <stdlib.h>
 #include "fila.h"
 
+void limparTela() {
+#ifdef _WIN32
+	system("cls");
+#else
+	system("clear");
+#endif
+}
+
 void exibirGrafo(int grafo[6][6], char* bairros[6]) {
 	printf("\nMatriz de Adjacência:\n");
 
@@ -23,14 +31,6 @@ void exibirGrafo(int grafo[6][6], char* bairros[6]) {
 		}
 	}
 
-}
-
-void limparTela() {
-#ifdef _WIN32
-	system("cls");
-#else
-	system("clear");
-#endif
 }
 
 
