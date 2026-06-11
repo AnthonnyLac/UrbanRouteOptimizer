@@ -33,7 +33,7 @@ void exibirGrafo(int grafo[6][6], char* bairros[6]) {
 
 }
 
-
+//Busca em largura (BFS)
 void bfs(int grafo[6][6], char* bairros[6], int inicio) {
 
     // cria a fila com capacidade 6 (um para cada bairro)
@@ -83,12 +83,12 @@ void bfs(int grafo[6][6], char* bairros[6], int inicio) {
 int main()
 {
 	int grafo[6][6] = {
-		{0, 4, 2, 0, 0, 0}, // A
+		{0, 4, 2, 0, 0, 9}, // A
 		{4, 0, 0, 3, 4, 0}, // B
 		{2, 0, 0, 0, 1, 0}, // C
 		{0, 3, 0, 0, 0, 5}, // D
 		{0, 4, 1, 0, 0, 2}, // E
-		{0, 0, 0, 5, 2, 0}  // F
+		{9, 0, 0, 5, 2, 0}  // F
 	};
 
 	char* bairros[6] = {
