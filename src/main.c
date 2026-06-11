@@ -81,6 +81,42 @@ void bfs(int grafo[6][6], char* bairros[6], int inicio) {
     destruirFila(fila);
 }
 
+// Busca em profundidade (DFS) - Utiliza pilha manualmente. Recursivo seria mais simples,
+// mas aqui queremos praticar a pilha.
+void dfs(int grafo[6][6], char* bairros[6], int inicio) {
+
+    Pilha* pilha = criarPilha(6);
+    int visitado[6] = {0};
+
+    empilhar(pilha, inicio);
+
+    printf("\nOrdem de visita (DFS com pilha):\n");
+
+    while (!pilhaVazia(pilha)) {
+
+        int atual = desempilhar(pilha);
+
+        if (!visitado[atual]) {
+
+            visitado[atual] = 1;
+            printf("Visitando %s\n", bairros[atual]);
+			
+			//6 bairros, índices de 0 a 5. 
+			//Para DFS, empilhamos os vizinhos na ordem inversa para visitar na ordem correta.
+			//A inversão no loop garante que, ao usar uma estrutura LIFO (pilha), 
+			//a ordem final de visita do DFS seja consistente com a lógica esperada de exploração.
+			
+            for (int i = 5; i >= 0; i--) {
+                if (grafo[atual][i] != 0 && !visitado[i]) {
+                    empilhar(pilha, i);
+                }
+            }
+        }
+    }
+
+    destruirPilha(pilha);
+}
+
 int main()
 {
 	int grafo[6][6] = {
@@ -124,7 +160,7 @@ int main()
 			break;
 
 		case 3:
-			printf("DFS ainda nao implementado.\n");
+			dfs(grafo, bairros, 0); // Inicia DFS a partir do bairro A (index 0)
 			break;
 
 		case 4:
