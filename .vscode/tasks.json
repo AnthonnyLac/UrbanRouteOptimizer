@@ -8,10 +8,12 @@
       "args": [
         "-fdiagnostics-color=always",
         "-g",
-        "${workspaceFolder}\\main.c",
-        "${workspaceFolder}\\fila.c",
+        "-I${workspaceFolder}\\include",
+        "${workspaceFolder}\\src\\main.c",
+        "${workspaceFolder}\\src\\fila.c",
+        "${workspaceFolder}\\src\\pilha.c",
         "-o",
-        "${workspaceFolder}\\main.exe"
+        "${workspaceFolder}\\bin\\main.exe"
       ],
       "options": {
         "cwd": "${workspaceFolder}"

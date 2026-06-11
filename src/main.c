@@ -1,7 +1,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "fila.h"
+#include "../include/fila.h"
+#include "../include/pilha.h"
 
 void limparTela() {
 #ifdef _WIN32

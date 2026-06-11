@@ -1,6 +1,6 @@
 // fila.c
 #include <stdlib.h>
-#include "fila.h"
+#include "../include/fila.h"
 
 Fila* criarFila(int tamanho) {
     Fila* f = malloc(sizeof(Fila));
