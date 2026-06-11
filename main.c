@@ -35,14 +35,49 @@ void exibirGrafo(int grafo[6][6], char* bairros[6]) {
 
 
 void bfs(int grafo[6][6], char* bairros[6], int inicio) {
-	Fila* fila = criarFila(6);
 
-	enfileirar(fila, inicio);
+    // cria a fila com capacidade 6 (um para cada bairro)
+    Fila* fila = criarFila(6);
 
+	// vetor que controla quais bairros já foram visitados
+    // começa tudo com 0 (não visitado)
+    int visitado[6] = {0};
+
+    // marca o bairro inicial como visitado
+    visitado[inicio] = 1;
+
+	// coloca o bairro inicial na fila
+    enfileirar(fila, inicio);
+
+   printf("\nOrdem de visita (BFS):\n");
+
+    // enquanto ainda houver bairros na fila
 	while (!filaVazia(fila)) {
-		int atual = desenfileirar(fila);
+
+        // remove o primeiro da fila (ordem FIFO)
+        int atual = desenfileirar(fila);
+
+		// mostra qual bairro estamos visitando
 		printf("Visitando %s\n", bairros[atual]);
+	
+        // agora vamos olhar TODOS os possíveis vizinhos
+        for (int i = 0; i < 6; i++) {
+
+			// condição:
+            // 1. existe caminho (peso != 0)
+            // 2. ainda não foi visitado
+            if (grafo[atual][i] != 0 && !visitado[i]) {
+ 				// marca como visitado (pra não repetir depois)
+                visitado[i] = 1;     
+
+				// adiciona esse vizinho na fila
+                enfileirar(fila, i);  
+            }
+        }
 	}
+
+	// libera memória da fila após o uso
+    destruirFila(fila);
 }
 
 int main()
