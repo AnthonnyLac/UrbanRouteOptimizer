@@ -11,9 +11,9 @@ typedef struct {
 
 // funções (tipo "service")
 Fila* criarFila(int tamanho);
-void enfileirar(Fila* f, int valor);
-int desenfileirar(Fila* f);
-int filaVazia(Fila* f);
-void destruirFila(Fila* f);
+void enfileirar(Fila* fila, int valor);
+int desenfileirar(Fila* fila);
+int filaVazia(Fila* fila);
+void destruirFila(Fila* fila);
 
 #endif
