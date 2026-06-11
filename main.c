@@ -46,12 +46,12 @@ int main()
 	};
 
 	char* bairros[6] = {
-		"Centro",         // A
-		"Guaraituba",     // B
-		"Roça Grande",    // C
-		"Maracanã",       // D
-		"Campo Pequeno",  // E
-		"Atuba"           // F
+		"Arkham Asylum", // A
+		"Wayne Tower",   // B
+		"Metropolis",    // C
+		"Daily Planet",  // D
+		"LexCorp",       // E
+		"Gotham Docks"   // F
 	};
 
 	int opcao;
@@ -65,7 +65,7 @@ int main()
 		printf("5 - Sair\n");
 		printf("Escolha: ");
 		scanf("%d", &opcao);
-        limparTela();
+		limparTela();
 
 		switch (opcao) {
 		case 1:
